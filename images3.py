@@ -171,15 +171,91 @@ for i, batch in enumerate(im_batches):
         for i in objs:
             if i=="car" or i=="motorbike" or i=="truck" or i=="bicycle":
                 vehicle_count+=1
-
+        
 
     if CUDA:
-        torch.cuda.synchronize()       
+        torch.cuda.synchronize()
+    if vehicle_count==0:
+        print("There are no vehicles present from the image passed into our YOLO Model.") 
 try:
     output
 except NameError:
-    print ("No detections were made")
+    print ("No detections were made | No Objects were found in the image")
     exit()
 
 im_dim_list = torch.index_select(im_dim_list, 0, output[:,0].long())
 scaling_factor = torch.min(416/im_dim_list,1)[0].view(-1,1)
+
+output[:,[1,3]] -= (inp_dim - scaling_factor*im_dim_list[:,0].view(-1,1))/2
+output[:,[2,4]] -= (inp_dim - scaling_factor*im_dim_list[:,1].view(-1,1))/2
+
+
+
+output[:,1:5] /= scaling_factor
+
+for i in range(output.shape[0]):
+    output[i, [1,3]] = torch.clamp(output[i, [1,3]], 0.0, im_dim_list[i,0])
+    output[i, [2,4]] = torch.clamp(output[i, [2,4]], 0.0, im_dim_list[i,1])
+    
+    
+output_recast = time.time()
+class_load = time.time()
+colors = pkl.load(open("colors/pallete", "rb"))
+
+draw = time.time()
+
+clss = {}
+
+for i in output:
+    if int(i[0]) not in clss:
+        clss[int(i[0])] = []
+    clss[int(i[0])].append(int(i[-1]))
+
+for key , value in clss.items():
+    clss[key] = Counter(value)
+    
+def write(x, results):
+    c1 = tuple(x[1:3].int())
+    c2 = tuple(x[3:5].int())
+    img = results[int(x[0])]
+    if int(x[0]) not in clss:
+        clss[int(x[0])] = []
+    cls = int(x[-1])
+    color = colors[cls%100]
+    label = "{0}: {1}".format(classes[cls],str(clss[int(x[0])][cls]))
+    cv2.rectangle(img, c1, c2,color, 1)
+    t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, 1 , 1)[0]
+    c2 = c1[0] + t_size[0] + 3, c1[1] + t_size[1] + 4
+    cv2.rectangle(img, c1, c2,color, -1)
+    cv2.putText(img, label, (c1[0], c1[1] + t_size[1] + 4), cv2.FONT_HERSHEY_PLAIN, 1, [225,255,255], 1);
+    return img
+
+
+
+list(map(lambda x: write(x, loaded_ims), output))
+
+
+outputs_names = pd.Series(imlist).apply(lambda x: "{}/{}".format(args.outputs,x.split("/")[-1]))
+
+list(map(cv2.imwrite, outputs_names, loaded_ims))
+
+
+end = time.time()
+
+    
+print("SUMMARY")
+print("------------------------------------------------------------------------------")
+print("{:25s}: {}".format("Task", "Time Taken (in seconds)"))
+print()
+print("{:25s}: {:2.3f}".format("Reading addresses", load_batch - read_dir))
+print("{:25s}: {:2.3f}".format("Loading batch", start_outputs_loop - load_batch))
+print("{:25s}: {:2.3f}".format("Detection (" + str(len(imlist)) +  " images)", output_recast - start_outputs_loop))
+print("{:25s}: {:2.3f}".format("Output Processing", class_load - output_recast))
+print("{:25s}: {:2.3f}".format("Drawing Boxes", end - draw))
+print("{:25s}: {:2.3f}".format("Average time_per_img", (end - load_batch)/len(imlist)))
+print("------------------------------------------------------------------------------")
+print()
+print("Number of Vehicles present : ",vehicle_count)
+
+torch.cuda.empty_cache()
+    
