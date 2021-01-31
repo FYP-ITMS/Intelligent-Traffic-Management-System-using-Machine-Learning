@@ -1,10 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Mar 10 16:51:11 2019
 
-@author: diaa
-"""
 from collections import defaultdict
 
 import numpy as np
@@ -14,10 +9,8 @@ from torch import nn
 from .parser import parse_model_configuration
 from .moduler import modules_creator
 
-
 class Darknet(nn.Module):
     """YOLOv3 object detection model"""
-
     def __init__(self, config_path, img_size=416):
         """
         Function:
@@ -84,7 +77,6 @@ class Darknet(nn.Module):
         Arguments:
             weights_path -- path of weights file
         """
-        
         # Open the weights file
         fp = open(weights_path, "rb")
         header = np.fromfile(fp, dtype=np.int32, count=5)  # First five are header values
@@ -145,7 +137,6 @@ class Darknet(nn.Module):
             path -- path of the new weights file
             cutoff -- save layers between 0 and cutoff (cutoff = -1 -> all are saved)
         """
-        
         fp = open(path, "wb")
         self.header_info[3] = self.seen
         self.header_info.tofile(fp)
@@ -166,6 +157,4 @@ class Darknet(nn.Module):
                     conv_layer.bias.data.cpu().numpy().tofile(fp)
                 # Load conv weights
                 conv_layer.weight.data.cpu().numpy().tofile(fp)
-
         fp.close()
-        

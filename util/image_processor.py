@@ -21,7 +21,6 @@ def letterbox_image(img, inp_dim):
     Return:
         canvas -- resized image    
     """
-
     img_w, img_h = img.shape[1], img.shape[0]
     w, h = inp_dim
     new_w = int(img_w * min(w/img_w, h/img_h))
@@ -33,8 +32,6 @@ def letterbox_image(img, inp_dim):
     canvas[(h-new_h)//2:(h-new_h)//2 + new_h,(w-new_w)//2:(w-new_w)//2 + new_w,  :] = resized_image
     
     return canvas
-
-
 
 def prep_image(img, inp_dim):
     """
@@ -48,7 +45,6 @@ def prep_image(img, inp_dim):
     Return:
         img -- image after preparing 
     """
-    
     img = (letterbox_image(img, (inp_dim, inp_dim)))
     img = img[:,:,::-1].transpose((2,0,1)).copy()
     img = torch.from_numpy(img).float().div(255.0).unsqueeze(0)
