@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Feb 26 13:57:44 2019
 
-@author: diaa
-"""
 import math
 import numpy as np
 import torch

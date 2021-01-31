@@ -1,10 +1,5 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar  4 02:05:50 2019
 
-@author: diaa
-"""
 import glob
 import os
 
