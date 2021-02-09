@@ -215,11 +215,14 @@ for i, batch in enumerate(im_batches):
         im_id = i * batch_size + im_num
         objs = [classes[int(x[-1])] for x in output if int(x[0]) == im_id]
         vc = Counter(objs)
+
         #print("Input File Name : {0:20s} predicted in {1:6.3f} seconds".format(image.split("/")[-1], (end - start)/batch_size))
         print("Input file detected in {1:6.3f} seconds".format(
             image.split("/")[-1], (end - start) / batch_size))
         #print("{0:20s} {1:s}".format("Objects detected:\n", "\n".join(objs)))
-        print("----------------------------------------------------------")
+        print(
+            "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+        )
         for i in objs:
             if i == "car" or i == "motorbike" or i == "truck" or i == "bicycle" or i == "autorickshaw":
                 vehicle_count += 1
@@ -297,19 +300,21 @@ end = time.time()
 
 print("SUMMARY")
 print(
-    "------------------------------------------------------------------------------"
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
 print("{:25s}: {}".format("Task", "Time Taken (in seconds)"))
-print()
-print("{:25s}: {:2.3f}".format("Loading batch",
+print("{:35s}: {:2.3f}".format("Loading batch",
                                start_outputs_loop - load_batch))
-print("{:25s}: {:2.3f}".format("Average time for detecting an image :",
+print("{:35s}: {:2.3f}".format("Average time for detecting an image :",
                                (end - load_batch) / len(imlist)))
+print(
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+)
+print("Total Number of Objects Detected  : ", len(objs))
+print("Types of Objects detected with count : ", vc.most_common())
 print(
     "------------------------------------------------------------------------------"
 )
-print()
 print("Number of Vehicles detected in total : ", vehicle_count)
-print("Types of Objects detected with count : ", vc.most_common())
 
 torch.cuda.empty_cache()
