@@ -53,7 +53,7 @@ def booting(load_str):
         os.system("clear")
 
 
-print('\033[1m' + "Performing Vehicle Detection ...")
+print('\033[1m' + '\033[91m' + "Kickstarting YOLO...")
 #booting("Performing Vehicle Detection ...")
 print()
 '''*** Parsing Arguments to YOLO Model ***'''
@@ -170,18 +170,21 @@ if batch_size != 1:
                                            batch_size, len(im_batches))]))
         for i in range(num_batches)
     ]
-
+print('\033[1m' + '\033[92m' + "Starting to perform Vehicle Detection..." +
+      '\033[0m')
 write = 0
 
 if CUDA:
     im_dim_list = im_dim_list.cuda()
 start_outputs_loop = time.time()
+print()
 print(
     '\033[0m' +
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
 print('\033[1m' + "SUMMARY")
 print(
+    '\033[0m' +
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
 print('\033[1m' + "{:45s}: {}".format("Task", "Time Taken (in seconds)"))
@@ -327,16 +330,16 @@ print(
     '\033[0m' +
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
-print('\033[1m' + "Number of Vehicles detected in total : ", vehicle_count)
 print(
+    '\033[1m' +
+    "{:45s}: {}".format("Number of Vehicles detected in total", vehicle_count))
+print(
+    '\033[0m' +
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
 print('\033[1m' + "{:45s} {}".format("Vehicle Type:", "Count:"))
+print()
 for key, value in sorted(vc.items()):
     if key == "car" or key == "motorbike" or key == "truck" or key == "bicycle":
         print('\033[0m' + "{:45s} {}".format(key, value))
-print(
-    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-)
-print('\033[1m' + 'Hello')
 torch.cuda.empty_cache()
