@@ -53,8 +53,8 @@ def booting(load_str):
         os.system("clear")
 
 
-print()
-booting("Performing Vehicle Detection ...")
+print('\033[1m' + "Performing Vehicle Detection ...")
+#booting("Performing Vehicle Detection ...")
 print()
 '''*** Parsing Arguments to YOLO Model ***'''
 
@@ -116,10 +116,12 @@ classes = load_classes("data/idd.names")
 '''***Setting up the neural network***'''
 model = Darknet(args.cfgfile)
 model.load_weights(args.weightsfile)
-booting("Input Data Passed")
+print('\033[0m' + "Input Data Passed Into YOLO Model...")
+#booting("Input Data Passed")
 print()
-booting("Network Successfully Loaded")
-print()
+print('\033[1m' + "YOLO Neural Network Successfully Loaded...")
+#booting("Network Successfully Loaded")
+print('\033[0m')
 model.hyperparams["height"] = args.reso
 inp_dim = int(model.hyperparams["height"])
 assert inp_dim % 32 == 0
@@ -174,7 +176,16 @@ write = 0
 if CUDA:
     im_dim_list = im_dim_list.cuda()
 start_outputs_loop = time.time()
-
+print(
+    '\033[0m' +
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+)
+print('\033[1m' + "SUMMARY")
+print(
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+)
+print('\033[1m' + "{:45s}: {}".format("Task", "Time Taken (in seconds)"))
+print('\033[0m')
 #Loading the image, if present :
 for i, batch in enumerate(im_batches):
     #load the image
@@ -215,14 +226,11 @@ for i, batch in enumerate(im_batches):
         im_id = i * batch_size + im_num
         objs = [classes[int(x[-1])] for x in output if int(x[0]) == im_id]
         vc = Counter(objs)
-
         #print("Input File Name : {0:20s} predicted in {1:6.3f} seconds".format(image.split("/")[-1], (end - start)/batch_size))
-        print("Input file detected in {1:6.3f} seconds".format(
-            image.split("/")[-1], (end - start) / batch_size))
+        print("{0:45s}: {1:6.3f} seconds".format(
+            "Detecting Input File Passed into YOLO Model",
+            (end - start) / batch_size))
         #print("{0:20s} {1:s}".format("Objects detected:\n", "\n".join(objs)))
-        print(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-        )
         for i in objs:
             if i == "car" or i == "motorbike" or i == "truck" or i == "bicycle" or i == "autorickshaw":
                 vehicle_count += 1
@@ -231,6 +239,7 @@ for i, batch in enumerate(im_batches):
         torch.cuda.synchronize()
     if vehicle_count == 0:
         print(
+            '\033[1m' +
             "There are no vehicles present from the input that was passed into our YOLO Model."
         )
 try:
@@ -298,23 +307,36 @@ list(map(cv2.imwrite, outputs_names, loaded_ims))
 
 end = time.time()
 
-print("SUMMARY")
 print(
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
-print("{:25s}: {}".format("Task", "Time Taken (in seconds)"))
-print("{:35s}: {:2.3f}".format("Loading batch",
-                               start_outputs_loop - load_batch))
-print("{:35s}: {:2.3f}".format("Average time for detecting an image :",
+
+print('\033[0m' +
+      "{:45s}: {:2.3f}".format("Loading batch", start_outputs_loop -
+                               load_batch))
+print("{:45s}: {:2.3f}".format("Average time for detecting an image",
                                (end - load_batch) / len(imlist)))
 print(
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
-print("Total Number of Objects Detected  : ", len(objs))
-print("Types of Objects detected with count : ", vc.most_common())
+print('\033[1m' +
+      "{:45s}: {}".format("Total Number of Objects Detected", len(objs)))
+print('\033[0m' + "{:45s}: {}".format("Types of Objects detected with count",
+                                      vc.most_common()))
 print(
-    "------------------------------------------------------------------------------"
+    '\033[0m' +
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
-print("Number of Vehicles detected in total : ", vehicle_count)
-
+print('\033[1m' + "Number of Vehicles detected in total : ", vehicle_count)
+print(
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+)
+print('\033[1m' + "{:45s} {}".format("Vehicle Type:", "Count:"))
+for key, value in sorted(vc.items()):
+    if key == "car" or key == "motorbike" or key == "truck" or key == "bicycle":
+        print('\033[0m' + "{:45s} {}".format(key, value))
+print(
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+)
+print('\033[1m' + 'Hello')
 torch.cuda.empty_cache()
