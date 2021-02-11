@@ -126,6 +126,8 @@ for i, batch in enumerate(im_batches):
         prediction = model(Variable(batch))
 
     prediction = non_max_suppression(prediction,confidence,num_classes,nms_conf=nms_thesh)
+
+    
     end = time.time()
 
     if type(prediction) == int:
