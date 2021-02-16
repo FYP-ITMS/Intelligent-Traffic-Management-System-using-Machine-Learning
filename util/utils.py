@@ -56,7 +56,7 @@ def unique(tensor):
     Return:
         tensor_res -- torch tensor after preparing 
     """
-    tensor_np = tensor.detach().numpy()
+    tensor_np = tensor.detach().cpu().numpy()
     unique_np = np.unique(tensor_np)
     unique_tensor = torch.from_numpy(unique_np)
     

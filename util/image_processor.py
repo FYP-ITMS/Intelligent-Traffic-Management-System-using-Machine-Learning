@@ -1,46 +1,44 @@
-#!/usr/bin/env python
-
 import numpy as np
 import cv2
 import torch
 
-def letterbox_image(img, inp_dim):
+def letterbox_image(image, input_dimension):
     """
     Function:
         Resize image with unchanged aspect ratio using padding    
         
     Arguments:
-        img -- image it self
-        inp_dim -- dimension for resize the image (input dimension)
+        image -- image input passed.
+        input_dimension -- dimensions for resizing the image.
     
     Return:
-        canvas -- resized image    
+        image_as_tensor -- resized image    
     """
-    img_w, img_h = img.shape[1], img.shape[0]
-    w, h = inp_dim
-    new_w = int(img_w * min(w/img_w, h/img_h))
-    new_h = int(img_h * min(w/img_w, h/img_h))
-    resized_image = cv2.resize(img, (new_w,new_h), interpolation = cv2.INTER_CUBIC)
+    image_width, image_height = image.shape[1], image.shape[0]
+    width, height = input_dimension
+    new_width = int(image_width * min(width/image_width, height/image_height))
+    new_height = int(image_height * min(width/image_width, height/image_height))
+    resized_image = cv2.resize(image, (new_width,new_height), interpolation = cv2.INTER_CUBIC)
     
-    canvas = np.full((inp_dim[1], inp_dim[0], 3), 128)
-
-    canvas[(h-new_h)//2:(h-new_h)//2 + new_h,(w-new_w)//2:(w-new_w)//2 + new_w,  :] = resized_image
+    image_as_tensor = np.full((input_dimension[1], input_dimension[0], 3), 128)
+    image_as_tensor[(height-new_height)//2:(height-new_height)//2 + new_height,(width-new_width)//2:(width-new_width)//2 + new_width,  :] = resized_image
     
-    return canvas
+    return image_as_tensor
 
-def prep_image(img, inp_dim):
+def preparing_image(image, input_dimension):
     """
     Function:
         Prepare image for inputting to the neural network. 
         
     Arguments:
-        img -- image it self
-        inp_dim -- dimension for resize the image (input dimension)
+        age input passed.
+        input_dimension -- dimensions for resizing the image.
     
     Return:
-        img -- image after preparing 
+        image -- image after preparing 
     """
-    img = (letterbox_image(img, (inp_dim, inp_dim)))
-    img = img[:,:,::-1].transpose((2,0,1)).copy()
-    img = torch.from_numpy(img).float().div(255.0).unsqueeze(0)
-    return img
+    image = (letterbox_image(image, (input_dimension, input_dimension)))
+    image = image[:,:,::-1].transpose((2,0,1)).copy()
+    image = torch.from_numpy(image).float().div(255.0).unsqueeze(0)
+
+    return image

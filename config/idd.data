@@ -1,6 +1,0 @@
-classes= 80
-train=data/idd/newdata.txt
-valid=data/idd/newdata.txt
-names=data/idd.names
-backup=backup/
-eval=coco
