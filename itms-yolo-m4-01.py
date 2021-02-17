@@ -87,7 +87,7 @@ inp_dim = int(model.hyperparams["height"])
 assert inp_dim % 32 == 0
 assert inp_dim > 32
 num_classes = model.num_classes
-print('\033[1m' + '\033[94m' +
+print('\033[1m' + '\033[92m' +
       "Performing Vehicle Detection with YOLO Neural Network..." + '\033[0m' +
       u'\N{check mark}')
 #Putting YOLO Model into GPU:
@@ -229,7 +229,7 @@ print(
     "----------------------------------------------------------------------" +
     "\n")
 print(
-    emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[92m' +
+    emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[94m' +
     "  Lane with denser traffic is :" + str(denser_lane) + "\n")
 
 countdown(20,denser_lane)
