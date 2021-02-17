@@ -232,7 +232,7 @@ print(
     emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[92m' +
     "  Lane with denser traffic is :" + str(denser_lane) + "\n")
 
-countdown(denser_lane)
+countdown(20,denser_lane)
 
 try:
     output
