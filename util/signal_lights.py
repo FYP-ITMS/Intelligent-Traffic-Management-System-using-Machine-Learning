@@ -2,7 +2,7 @@ import time
 import emoji
 def switch_signal(denser_lane,seconds):
     if denser_lane==1:
-        print("Lane 1 is now opening...\n")
+        print(+ '\033[1m' "Lane 1 is now opening...\n" + '\033[0m')
         print(
             "Lane 1                Lane 2                Lane 3                Lane 4"
         )
