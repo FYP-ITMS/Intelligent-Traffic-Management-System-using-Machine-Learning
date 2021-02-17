@@ -1,6 +1,7 @@
 import IPython
 from google.colab import output
-display(IPython.display.HTML('''<div class="container">
+display(
+    IPython.display.HTML('''<div class="container">
 	<div class="circle red" color="red"></div>
 	<div class="circle" color="yellow"></div>
 	<div class="circle" color="green"></div>

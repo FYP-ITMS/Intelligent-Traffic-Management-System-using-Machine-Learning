@@ -20,7 +20,7 @@ from util.parser import load_classes  # navigates to load_classess function in u
 from util.model import Darknet  # to load weights into our model for vehicle detection
 from util.image_processor import preparing_image  # to pass input image into model,after resizing it into yolo format
 from util.utils import non_max_suppression  # to do non-max-suppression in the detected bounding box objects i.e cars
-
+from util.signal_switching import countdown
 
 #*** Parsing Arguments to YOLO Model ***
 def arg_parse():
@@ -232,11 +232,12 @@ print(
     emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[92m' +
     "  Lane with denser traffic is :" + str(denser_lane) + "\n")
 
+countdown(denser_lane)
+
 try:
     output
 except NameError:
     print("No detections were made | No Objects were found from the input")
     exit()
-
 
 torch.cuda.empty_cache()
