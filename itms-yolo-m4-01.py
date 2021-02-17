@@ -22,6 +22,7 @@ from util.image_processor import preparing_image  # to pass input image into mod
 from util.utils import non_max_suppression  # to do non-max-suppression in the detected bounding box objects i.e cars
 from util.signal_switching import countdown
 
+
 #*** Parsing Arguments to YOLO Model ***
 def arg_parse():
     parser = argparse.ArgumentParser(
@@ -232,7 +233,7 @@ print(
     emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[94m' +
     "  Lane with denser traffic is :" + str(denser_lane) + "\n")
 
-countdown(20,denser_lane)
+countdown(5, denser_lane)
 
 try:
     output
