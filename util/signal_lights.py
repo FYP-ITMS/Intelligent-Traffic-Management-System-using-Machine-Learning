@@ -131,8 +131,4 @@ def switch_signal(denser_lane,seconds):
 
     print('\033[0m' + '\n\033[99m' +
               "LANE-{} is now CLOSED ".format(str(denser_lane)+ '\033[0m' ))
-    print("----------------------------------------------------------------------------------")
-
-
-
-switch_signal(1,5)
+    
