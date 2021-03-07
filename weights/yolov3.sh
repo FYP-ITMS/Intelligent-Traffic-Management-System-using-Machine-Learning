@@ -1,0 +1,1 @@
+We have to place the weights file inside this folder.
