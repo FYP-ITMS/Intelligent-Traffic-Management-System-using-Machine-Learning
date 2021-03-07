@@ -234,7 +234,7 @@ print(
     emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[94m' +
     " Lane with denser traffic is : Lane " + str(denser_lane) +'\033[30m'+ "\n")
 
-switch_signal(1, 5)
+switch_signal(denser_lane,5)
 print(
     '\033[1m' +
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
