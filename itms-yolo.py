@@ -10,7 +10,7 @@ import time  # for time-related python functions
 import sys  # provides access for variables used or maintained by intrepreter
 import torch  # machine learning library for tensor and neural-network computations
 from torch.autograd import Variable  # Auto Differentaion package for managing scalar based values
-import cv2  # OpenCV Library to carry out Computer Vision tasks
+import cv2  #OpenCV Library to carry out Computer Vision tasks
 import emoji
 import warnings  # to manage warnings that are displayed during execution
 warnings.filterwarnings(
