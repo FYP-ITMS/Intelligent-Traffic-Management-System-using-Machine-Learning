@@ -20,7 +20,8 @@ from util.parser import load_classes  # navigates to load_classess function in u
 from util.model import Darknet  # to load weights into our model for vehicle detection
 from util.image_processor import preparing_image  # to pass input image into model,after resizing it into yolo format
 from util.utils import non_max_suppression  # to do non-max-suppression in the detected bounding box objects i.e cars
-from util.signal_lights import switch_signal
+from util.dynamic_signal_switching import switch_signal
+from util.dynamic_signal_switching import avg_signal_op_time
 
 
 #*** Parsing Arguments to YOLO Model ***
@@ -138,9 +139,11 @@ if CUDA:
     im_dim_list = im_dim_list.cuda()
 start_outputs_loop = time.time()
 
+lane_count_list = []
 input_image_count = 0
 denser_lane = 0
 lane_with_higher_count = 0
+
 print()
 print(
     '\033[1m' +
@@ -205,9 +208,14 @@ for i, batch in enumerate(im_batches):
         print('\033[1m' + "Lane : {} - {} : {:5s} {}".format(
             input_image_count, "Number of Vehicles detected", "",
             vehicle_count))
+
+        if vehicle_count > 0:
+            lane_count_list.append(vehicle_count)
+
         if vehicle_count > lane_with_higher_count:
             lane_with_higher_count = vehicle_count
             denser_lane = input_image_count
+
         print(
             '\033[0m' +
             "           File Name:     {0:20s}.".format(image.split("/")[-1]))
@@ -222,9 +230,9 @@ for i, batch in enumerate(im_batches):
 
 if vehicle_count == 0:
     print(
-            '\033[1m' +
-            "There are no vehicles present from the input that was passed into our YOLO Model."
-        )
+        '\033[1m' +
+        "There are no vehicles present from the input that was passed into our YOLO Model."
+    )
 
 print(
     '\033[1m' +
@@ -234,6 +242,8 @@ print(
     emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[94m' +
     " Lane with denser traffic is : Lane " + str(denser_lane) + '\033[30m' +
     "\n")
+
+switching_time = avg_signal_op_time(lane_count_list)
 
 switch_signal(denser_lane, switching_time)
 

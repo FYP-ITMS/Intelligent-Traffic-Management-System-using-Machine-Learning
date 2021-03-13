@@ -131,4 +131,8 @@ def switch_signal(denser_lane,seconds):
 
     print('\033[0m' + '\n\033[99m' +
               "LANE-{} is now CLOSED ".format(str(denser_lane)+ '\033[0m' ))
-    
+
+
+def avg_signal_op_time(lane_count_list):
+    average_count = sum(lane_count_list) / len(lane_count_list)
+    return average_count
