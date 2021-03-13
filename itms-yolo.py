@@ -20,6 +20,8 @@ from util.parser import load_classes  # navigates to load_classess function in u
 from util.model import Darknet  # to load weights into our model for vehicle detection
 from util.image_processor import preparing_image  # to pass input image into model,after resizing it into yolo format
 from util.utils import non_max_suppression  # to do non-max-suppression in the detected bounding box objects i.e cars
+from util.signal_switching import countdown
+from util.signal_lights import switch_signal
 
 
 #*** Parsing Arguments to YOLO Model ***
@@ -87,7 +89,7 @@ inp_dim = int(model.hyperparams["height"])
 assert inp_dim % 32 == 0
 assert inp_dim > 32
 num_classes = model.num_classes
-print('\033[1m' + '\033[94m' +
+print('\033[1m' + '\033[92m' +
       "Performing Vehicle Detection with YOLO Neural Network..." + '\033[0m' +
       u'\N{check mark}')
 #Putting YOLO Model into GPU:
@@ -151,7 +153,7 @@ print(
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 )
 print('\033[1m' +
-      "{:25s}: ".format("Detected  (" + str(len(imlist)) + " inputs)"))
+      "{:25s}: ".format("\nDetected  (" + str(len(imlist)) + " inputs)"))
 print('\033[0m')
 #Loading the image, if present :
 for i, batch in enumerate(im_batches):
@@ -218,25 +220,32 @@ for i, batch in enumerate(im_batches):
 
     if CUDA:
         torch.cuda.synchronize()
-    if vehicle_count == 0:
-        print(
+        
+if vehicle_count == 0:
+    print(
             '\033[1m' +
             "There are no vehicles present from the input that was passed into our YOLO Model."
         )
 
 print(
     '\033[1m' +
-    "----------------------------------------------------------------------" +
-    "\n")
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+)
 print(
-    emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[92m' +
-    "  Lane with denser traffic is :" + str(denser_lane) + "\n")
+    emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[94m' +
+    " Lane with denser traffic is : Lane " + str(denser_lane) + '\033[30m' +
+    "\n")
 
+switch_signal(denser_lane, switching_time)
+
+print(
+    '\033[1m' +
+    "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+)
 try:
     output
 except NameError:
     print("No detections were made | No Objects were found from the input")
     exit()
-
 
 torch.cuda.empty_cache()
