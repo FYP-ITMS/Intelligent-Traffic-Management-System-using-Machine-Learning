@@ -20,7 +20,6 @@ from util.parser import load_classes  # navigates to load_classess function in u
 from util.model import Darknet  # to load weights into our model for vehicle detection
 from util.image_processor import preparing_image  # to pass input image into model,after resizing it into yolo format
 from util.utils import non_max_suppression  # to do non-max-suppression in the detected bounding box objects i.e cars
-from util.signal_switching import countdown
 from util.signal_lights import switch_signal
 
 
@@ -34,7 +33,7 @@ def arg_parse():
         "--images",
         dest='images',
         help="Image / Directory containing images to  vehicle detection upon",
-        default="/content/Model/test-images",
+        default="vehicles-on-lanes",
         type=str)
     '''parser.add_argument("--outputs",dest='outputs',help="Image / Directory to store detections",default="/content/output/",type=str)'''
     parser.add_argument("--bs", dest="bs", help="Batch size", default=1)
@@ -220,7 +219,7 @@ for i, batch in enumerate(im_batches):
 
     if CUDA:
         torch.cuda.synchronize()
-        
+
 if vehicle_count == 0:
     print(
             '\033[1m' +
