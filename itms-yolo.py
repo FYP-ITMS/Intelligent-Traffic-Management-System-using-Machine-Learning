@@ -243,7 +243,7 @@ print(
     " Lane with denser traffic is : Lane " + str(denser_lane) + '\033[30m' +
     "\n")
 
-switching_time = avg_signal_op_time(lane_count_list)
+switching_time = 5 #avg_signal_op_time(lane_count_list)
 
 switch_signal(denser_lane, switching_time)
 

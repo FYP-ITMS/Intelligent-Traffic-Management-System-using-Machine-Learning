@@ -135,4 +135,4 @@ def switch_signal(denser_lane,seconds):
 
 def avg_signal_op_time(lane_count_list):
     average_count = sum(lane_count_list) / len(lane_count_list)
-    return average_count
+    return int(average_count)*2
