@@ -37,6 +37,7 @@ def preparing_image(image, input_dimension):
     Return:
         image -- image after preparing 
     """
+    
     image = (letterbox_image(image, (input_dimension, input_dimension)))
     image = image[:,:,::-1].transpose((2,0,1)).copy()
     image = torch.from_numpy(image).float().div(255.0).unsqueeze(0)

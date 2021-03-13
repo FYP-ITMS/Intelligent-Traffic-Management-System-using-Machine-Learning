@@ -107,7 +107,7 @@ except NotADirectoryError:
     imlist.append(osp.join(osp.realpath('.'), images))
 except FileNotFoundError:
     print("No Input with the name {}".format(images))
-    print("Model failed to load your input.  ")
+    print("Model failed to load your input.")
     exit()
 
 load_batch = time.time()
