@@ -1,25 +1,25 @@
 '''*** Import Section ***'''
-from __future__ import division  # to allow compatibility of code between Python 2.x and 3.x with minimal overhead
-from collections import Counter  # library and method for counting hashable objects
-import argparse  # to define arguments to the program in a user-friendly way
-import os  # provides functions to interact with local file system
-import os.path as osp  # provides range of methods to manipulate files and directories
-import pickle as pkl  # to implement binary protocols for serializing and de-serializing object structure
-import pandas as pd  # popular data-analysis library for machine learning.
-import time  # for time-related python functions
-import sys  # provides access for variables used or maintained by intrepreter
-import torch  # machine learning library for tensor and neural-network computations
-from torch.autograd import Variable  # Auto Differentaion package for managing scalar based values
-import cv2  # OpenCV Library to carry out Computer Vision tasks
+from __future__ import division                     # to allow compatibility of code between Python 2.x and 3.x with minimal overhead
+from collections import Counter                     # library and method for counting hashable objects
+import argparse                                     # to define arguments to the program in a user-friendly way
+import os                                           # provides functions to interact with local file system
+import os.path as osp                               # provides range of methods to manipulate files and directories
+import pickle as pkl                                # to implement binary protocols for serializing and de-serializing object structure
+import pandas as pd                                 # popular data-analysis library for machine learning.
+import time                                         # for time-related python functions
+import sys                                          # provides access for variables used or maintained by intrepreter
+import torch                                        # machine learning library for tensor and neural-network computations
+from torch.autograd import Variable                 # Auto Differentaion package for managing scalar based values
+import cv2                                          # OpenCV Library to carry out Computer Vision tasks
 import emoji
-import warnings  # to manage warnings that are displayed during execution
+import warnings                                     # to manage warnings that are displayed during execution
 warnings.filterwarnings(
-    'ignore')  # to ignore warning messages while code execution
+    'ignore')                                       # to ignore warning messages while code execution
 print('\033[1m' + '\033[91m' + "Kickstarting YOLO...\n")
-from util.parser import load_classes  # navigates to load_classess function in util.parser.py
-from util.model import Darknet  # to load weights into our model for vehicle detection
-from util.image_processor import preparing_image  # to pass input image into model,after resizing it into yolo format
-from util.utils import non_max_suppression  # to do non-max-suppression in the detected bounding box objects i.e cars
+from util.parser import load_classes                # navigates to load_classess function in util.parser.py
+from util.model import Darknet                      # to load weights into our model for vehicle detection
+from util.image_processor import preparing_image    # to pass input image into model,after resizing it into yolo format
+from util.utils import non_max_suppression          # to do non-max-suppression in the detected bounding box objects i.e cars
 from util.dynamic_signal_switching import switch_signal
 from util.dynamic_signal_switching import avg_signal_oc_time
 
@@ -27,16 +27,17 @@ from util.dynamic_signal_switching import avg_signal_oc_time
 #*** Parsing Arguments to YOLO Model ***
 def arg_parse():
     parser = argparse.ArgumentParser(
-        description=
-        'YOLO Vehicle Detection Model for Intelligent Traffic Management System'
-    )
-    parser.add_argument(
-        "--images",
-        dest='images',
-        help="Image / Directory containing images to  vehicle detection upon",
-        default="vehicles-on-lanes",
-        type=str)
-    parser.add_argument("--bs", dest="bs", help="Batch size", default=1)
+                        description=
+                        'YOLO Vehicle Detection Model for Intelligent Traffic Management System')
+    parser.add_argument("--images",
+                        dest='images',
+                        help="Image / Directory containing images to  vehicle detection upon",
+                        default="vehicles-on-lanes",
+                        type=str)
+    parser.add_argument("--bs", 
+                        dest="bs", 
+                        help="Batch size", 
+                        default=1)
     parser.add_argument("--confidence_score",
                         dest="confidence",
                         help="Confidence Score to filter Vehicle Prediction",
@@ -56,12 +57,12 @@ def arg_parse():
                         default="weights/yolov3.weights",
                         type=str)
     parser.add_argument(
-        "--reso",
-        dest='reso',
-        help=
-        "Input resolution of the network. Increase to increase accuracy. Decrease to increase speed",
-        default="416",
-        type=str)
+                        "--reso",
+                        dest='reso',
+                        help=
+                        "Input resolution of the network. Increase to increase accuracy. Decrease to increase speed",
+                        default="416",
+                        type=str)
     return parser.parse_args()
 
 
