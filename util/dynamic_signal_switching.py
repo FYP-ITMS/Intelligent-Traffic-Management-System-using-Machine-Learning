@@ -1,10 +1,10 @@
 import time
 import emoji
 def switch_signal(denser_lane,seconds):
-    print("Dynamic Signal Switching Phase")
+    print("Dynamic Signal Switching Phase" + '\033[0m')
     time.sleep(1)
-    print("Calculating Signal Open/Close Timing..." + time.sleep(1) +
-         emoji.emojize(":white_check_mark:"))
+    print("Calculating Signal Open/Close Timing..." +
+          emoji.emojize(":ballot_box_with_check:"))
     time.sleep(1)
     print('\033[1m' + '\n\033[99m' +
               "OPENING LANE-{}: ".format(str(denser_lane))+ '\033[0m' )

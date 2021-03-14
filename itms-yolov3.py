@@ -216,11 +216,10 @@ for i, batch in enumerate(im_batches):
             lane_with_higher_count = vehicle_count
             denser_lane = input_image_count
 
-        print(
+        '''print(
             '\033[0m' +
-            "           File Name:     {0:20s}.".format(image.split("/")[-1]))
-        print('\033[0m' +
-              "           {:15} {}".format("Vehicle Type", "Count"))
+            "           File Name:     {0:20s}.".format(image.split("/")[-1]))'''
+        print('\033[0m' +"           {:15} {}".format("Vehicle Type", "Count"))
         for key, value in sorted(vc.items()):
             if key == "car" or key == "motorbike" or key == "truck" or key == "bicycle":
                 print('\033[0m' + "            {:15s} {}".format(key, value))
