@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import math
 import numpy as np
 import torch
@@ -294,7 +291,7 @@ def weights_init_normal(m):
         Initialize weights
         
     Arguments:
-       m -- module
+        m -- module
     """
     classname = m.__class__.__name__
     if classname.find("Conv") != -1:

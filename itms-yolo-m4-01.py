@@ -209,9 +209,9 @@ for i, batch in enumerate(im_batches):
         if vehicle_count > lane_with_higher_count:
             lane_with_higher_count = vehicle_count
             denser_lane = input_image_count
-        '''print(
+        print(
             '\033[0m' +
-            "           File Name:     {0:20s}.".format(image.split("/")[-1]))'''
+            "           File Name:     {0:20s}.".format(image.split("/")[-1]))
         print('\033[0m' +
               "           {:15} {}".format("Vehicle Type", "Count"))
         for key, value in sorted(vc.items()):
@@ -234,7 +234,8 @@ print(
     emoji.emojize(':vertical_traffic_light:') + '\033[1m' + '\033[94m' +
     " Lane with denser traffic is : Lane " + str(denser_lane) +'\033[30m'+ "\n")
 
-switch_signal(denser_lane,5)
+switch_signal(denser_lane, 5)
+
 print(
     '\033[1m' +
     "------------------------------------------------------------------------------------------------------------------------------------------------------------"
