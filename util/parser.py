@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 def parse_model_configuration(path):
     """
     Function:
