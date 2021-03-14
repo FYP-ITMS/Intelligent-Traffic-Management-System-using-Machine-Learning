@@ -3,7 +3,7 @@ import emoji
 def switch_signal(denser_lane,seconds):
     print("Dynamic Signal Switching Phase")
     time.sleep(1)
-    time("Calculating Signal Open/Close Timing..." + time.sleep(1) +
+    print("Calculating Signal Open/Close Timing..." + time.sleep(1) +
          emoji.emojize(":white_check_mark:"))
     time.sleep(1)
     print('\033[1m' + '\n\033[99m' +
