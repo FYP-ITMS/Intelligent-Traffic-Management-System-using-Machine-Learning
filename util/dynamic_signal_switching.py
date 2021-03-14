@@ -1,6 +1,11 @@
 import time
 import emoji
 def switch_signal(denser_lane,seconds):
+    print("Dynamic Signal Switching Phase")
+    time.sleep(1)
+    time("Calculating Signal Open/Close Timing..." + time.sleep(1) +
+         emoji.emojize(":white_check_mark:"))
+    time.sleep(1)
     print('\033[1m' + '\n\033[99m' +
               "OPENING LANE-{}: ".format(str(denser_lane))+ '\033[0m' )
     print("----------------------------------------------------------------------------------")
@@ -14,6 +19,9 @@ def switch_signal(denser_lane,seconds):
             "\n  " + emoji.emojize(":white_circle:") + "                   "+emoji.emojize(":white_circle:")+ "                    "+emoji.emojize(":white_circle:")+ "                   "+emoji.emojize(":white_circle:")+
             "\n  " + emoji.emojize(":green_circle:") + "                   "+emoji.emojize(":white_circle:")+ "                    "+emoji.emojize(":white_circle:")+ "                   "+emoji.emojize(":white_circle:") +
             "\n")
+        print(
+            "----------------------------------------------------------------------------------"
+        )
         print('\033[0m' + '\n\033[99m' +
               "LANE-{} is now OPEN and will CLOSE after {} seconds ".format(str(denser_lane),str(seconds))+ '\033[0m' ,end="")
         while seconds:
@@ -21,7 +29,9 @@ def switch_signal(denser_lane,seconds):
             print('\033[99m'+".", end="")
             time.sleep(1)
             seconds -= 1
-        print()
+        print(
+            "----------------------------------------------------------------------------------"
+        )
         print('\033[1m' + '\n\033[99m' +
               "CLOSING LANE-{}: ".format(str(denser_lane))+ '\033[0m' )
         print("----------------------------------------------------------------------------------")
@@ -129,8 +139,7 @@ def switch_signal(denser_lane,seconds):
             "\n  " + emoji.emojize(":white_circle:") + "                   "+emoji.emojize(":white_circle:")+ "                    "+emoji.emojize(":white_circle:")+ "                   "+emoji.emojize(":white_circle:") +
             "\n")
 
-    print('\033[0m' + '\n\033[99m' +
-              "LANE-{} is now CLOSED ".format(str(denser_lane)+ '\033[0m' ))
+    print('\033[0m' + '\n\033[99m' + "LANE-{} is now CLOSED ".format(str(denser_lane)+ '\033[0m' ))
 
 
 def avg_signal_oc_time(lane_count_list):
@@ -148,4 +157,3 @@ def avg_signal_oc_time(lane_count_list):
         return 15
     elif average_count<10:
         return 10
-
