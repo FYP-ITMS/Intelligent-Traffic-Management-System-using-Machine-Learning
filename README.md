@@ -24,7 +24,7 @@
 **3. YOLO Machine Learning Model - Deployment** ⏳
 >1. Non-Max Suppression
 >2. Vehicle Detection
->2. Counting number of vehicles present.
+>3. Counting number of vehicles present.
 
 **4. Dynamic Signal Switching** 🚦
 >1. Average Signal Open/Close Time
