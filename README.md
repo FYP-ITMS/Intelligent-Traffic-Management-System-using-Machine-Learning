@@ -27,6 +27,8 @@
 >2. Counting number of vehicles present.
 
 **4. Dynamic Signal Switching** 🚦
-
+>1. Average Signal Open/Close Time
+>2. Lane Open/Close System
+>3. Dynamic to Static at abnormal conditions.
 
 ---
