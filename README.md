@@ -28,7 +28,7 @@
 
 **4. Dynamic Signal Switching** 🚦
 >1. Average Signal Open/Close Time
->2. Lane Open/Close System
+>2. Lane Open/Close Function
 >3. Dynamic to Static at abnormal conditions.
-
+>4. 
 ---
