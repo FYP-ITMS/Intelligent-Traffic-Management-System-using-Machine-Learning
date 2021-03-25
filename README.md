@@ -1,4 +1,4 @@
-#                                     **FINAL YEAR PROJECT :**
+#                                     **FINAL YEAR PROJECT :** 
 
 
 # **Intelligent Traffic Management System using Machine Learning Model**
