@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+# Welcome to ITMS Homepage 
 
 You can use the [editor on GitHub](https://github.com/FYP-ITMS/Intelligent-Traffic-Management-System-Using-ML-YOLO/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
 
