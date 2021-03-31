@@ -235,11 +235,11 @@ def avg_signal_oc_time(lane_count_list):
             return 75
         else:
             return int(max(lane_count_list)) + 20
-    elif average_count > 30:
-        return 40
-    elif average_count > 25:
-        return 35
-    elif average_count > 10:
-        return 15
-    elif average_count < 10:
-        return 10
+    elif average_count > 60:
+        return 135
+    elif average_count > 45:
+        return 105
+    elif average_count > 20:
+        return 55
+    elif average_count < 20:
+        return 20
